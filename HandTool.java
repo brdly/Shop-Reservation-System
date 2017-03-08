@@ -7,27 +7,46 @@
  */
 public class HandTool extends Tool
 {
-    // instance variables - replace the example below with your own
-    private int x;
+    // instance variables
+    private boolean sharpenable;
 
     /**
-     * Constructor for objects of class HandTool
+     * Constructor for the HandTool class
+     *
+     * @param toolName
+     * @param itemCode
+     * @param timesBorrowed
+     * @param onLoan
+     * @param cost
+     * @param weight
+     * @param sharpenable
      */
-    public HandTool()
+    public HandTool(String toolName, String itemCode, int timesBorrowed, boolean onLoan, int cost, int weight, boolean sharpenable)
     {
-        // initialise instance variables
-        x = 0;
+        super(toolName, itemCode, timesBorrowed, onLoan, cost, weight);
+        this.sharpenable = sharpenable;
     }
 
     /**
-     * An example of a method - replace this comment with your own
-     * 
-     * @param  y   a sample parameter for a method
-     * @return     the sum of x and y 
+     * Prints details of this tool
      */
-    public int sampleMethod(int y)
+    public void printDetails()
     {
-        // put your code here
-        return x + y;
+        super.printDetails();
+        System.out.println("Sharpenable: " + sharpenable);
+    }
+
+    /**
+     * Getter and setter below
+     */
+
+    public boolean isSharpenable()
+    {
+        return sharpenable;
+    }
+
+    public void setSharpenable(boolean sharpenable)
+    {
+        this.sharpenable = sharpenable;
     }
 }

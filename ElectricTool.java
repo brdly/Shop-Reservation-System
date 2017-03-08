@@ -1,33 +1,66 @@
 
 /**
- * Write a description of class ElectricTool here.
+ * Subclass for the Tool class.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author George Broadley
+ * @version 1.0.0
  */
 public class ElectricTool extends Tool
 {
-    // instance variables - replace the example below with your own
-    private int x;
+    // instance variables
+    private boolean rechargable;
+    private String power;
 
     /**
-     * Constructor for objects of class ElectricTool
+     * Constructor for the ElectricTool class
+     *
+     * @param toolName
+     * @param itemCode
+     * @param timesBorrowed
+     * @param onLoan
+     * @param cost
+     * @param weight
+     * @param rechargable
+     * @param power
      */
-    public ElectricTool()
+    public ElectricTool(String toolName, String itemCode, int timesBorrowed, boolean onLoan, int cost, int weight, boolean rechargable, String power)
     {
-        // initialise instance variables
-        x = 0;
+        super(toolName, itemCode, timesBorrowed, onLoan, cost, weight);
+        this.rechargable = rechargable;
+        this.power = power;
     }
 
     /**
-     * An example of a method - replace this comment with your own
-     * 
-     * @param  y   a sample parameter for a method
-     * @return     the sum of x and y 
+     * Prints details of this tool.
      */
-    public int sampleMethod(int y)
+    public void printDetails()
     {
-        // put your code here
-        return x + y;
+        super.printDetails();
+        System.out.println("Rechargable: " + rechargable);
+        System.out.println("Power: " + power);
+    }
+
+    /**
+     * Getters and Setters below
+     */
+
+    public boolean isRechargable()
+    {
+        return rechargable;
+    }
+
+    public String getPower()
+    {
+        return power;
+    }
+
+    public void setRechargable(boolean rechargable)
+    {
+        this.rechargable = rechargable;
+    }
+
+    public void setPower(String power)
+    {
+        this.power = power;
     }
 }

@@ -1,0 +1,17 @@
+#BlueJ class context
+comment0.params=toolName\ itemCode\ timesBorrowed\ onLoan\ cost\ weight\ rechargable\ power
+comment0.target=ElectricTool(java.lang.String,\ java.lang.String,\ int,\ boolean,\ int,\ int,\ boolean,\ java.lang.String)
+comment0.text=\r\n\ Constructor\ for\ the\ ElectricTool\ class\r\n\r\n\ @param\ toolName\r\n\ @param\ itemCode\r\n\ @param\ timesBorrowed\r\n\ @param\ onLoan\r\n\ @param\ cost\r\n\ @param\ weight\r\n\ @param\ rechargable\r\n\ @param\ power\r\n
+comment1.params=
+comment1.target=void\ printDetails()
+comment1.text=\r\n\ Prints\ details\ of\ this\ tool.\r\n
+comment2.params=
+comment2.target=boolean\ isRechargable()
+comment2.text=\r\n\ Getters\ and\ Setters\ below\r\n
+comment3.params=
+comment3.target=java.lang.String\ getPower()
+comment4.params=rechargable
+comment4.target=void\ setRechargable(boolean)
+comment5.params=power
+comment5.target=void\ setPower(java.lang.String)
+numComments=6
