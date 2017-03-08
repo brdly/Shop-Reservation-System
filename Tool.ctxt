@@ -1,0 +1,5 @@
+#BlueJ class context
+comment0.params=toolName\ itemCode\ timesBorrowed\ onLoan\ cost\ weight
+comment0.target=Tool(java.lang.String,\ java.lang.String,\ int,\ boolean,\ int,\ int)
+comment0.text=\r\n\ Constructor\ for\ objects\ of\ class\ Tool\r\n
+numComments=1
