@@ -29,7 +29,8 @@ public class Shop
         FileDialog fileDialog = new FileDialog(new Frame(), "Open", FileDialog.LOAD);
         fileDialog.setVisible(true);
         String filename = fileDialog.getDirectory() + fileDialog.getFile();        
-        if (filename == null) {
+        if (filename == null)
+        {
             System.out.println("Error 01: File not found, please try again with a valid file");
         }
         else
