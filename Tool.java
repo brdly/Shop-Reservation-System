@@ -35,6 +35,9 @@ public class Tool
         this.weight        = weight;
     }
 
+    /**
+     * Prints the default data that is shared between each tool type.
+     */    
     public void printDetails()
     {
         System.out.println("Tool Name: " + toolName);

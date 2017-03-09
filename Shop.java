@@ -21,6 +21,9 @@ public class Shop
         toolsList = new ArrayList<Tool>();
     }
 
+    /**
+     * Reader for electric tool data. Takes file input from dialog and puts that data into the tool arraylist.
+     */
     public void readElectricToolData()
     {
         FileDialog fileDialog = new FileDialog(new Frame(), "Open", FileDialog.LOAD);
@@ -64,6 +67,9 @@ public class Shop
         }
     }
     
+    /**
+     * Method returns true if the line inputted is either a comment (line starts with "//") or empty, else the method returns false.
+     */
     private boolean checkIfEmptyOrComment(String lineToCheck)
     {
         if (lineToCheck.equals(""))
@@ -80,6 +86,9 @@ public class Shop
         }
     }
 
+    /**
+     * Method loops through each tool in the arraylist and calls that tool's printDetails method.
+     */    
     public void printAllDetails()
     {
         for (Tool tool:toolsList)
@@ -91,7 +100,6 @@ public class Shop
     /**
      * Getters and Setters below
      */
-
     public ArrayList getToolsList()
     {
         return toolsList;

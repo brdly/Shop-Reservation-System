@@ -1,9 +1,13 @@
 #BlueJ class context
 comment0.params=toolName\ itemCode\ timesBorrowed\ onLoan\ cost\ weight\ sharpenable
 comment0.target=HandTool(java.lang.String,\ java.lang.String,\ int,\ boolean,\ int,\ int,\ boolean)
-comment0.text=\r\n\ Constructor\ for\ objects\ of\ class\ HandTool\r\n
+comment0.text=\r\n\ Constructor\ for\ the\ HandTool\ class\r\n\r\n\ @param\ toolName\r\n\ @param\ itemCode\r\n\ @param\ timesBorrowed\r\n\ @param\ onLoan\r\n\ @param\ cost\r\n\ @param\ weight\r\n\ @param\ sharpenable\r\n
 comment1.params=
-comment1.target=boolean\ isSharpenable()
-comment2.params=sharpenable
-comment2.target=void\ setSharpenable(boolean)
-numComments=3
+comment1.target=void\ printDetails()
+comment1.text=\r\n\ Prints\ details\ of\ this\ tool\r\n
+comment2.params=
+comment2.target=boolean\ isSharpenable()
+comment2.text=\r\n\ Getter\ and\ setter\ below\r\n
+comment3.params=sharpenable
+comment3.target=void\ setSharpenable(boolean)
+numComments=4

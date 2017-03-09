@@ -4,6 +4,7 @@ comment0.target=Tool(java.lang.String,\ java.lang.String,\ int,\ boolean,\ int,\
 comment0.text=\r\n\ Constructor\ for\ the\ Tool\ class\r\n\r\n\ @param\ toolName\r\n\ @param\ itemCode\r\n\ @param\ timesBorrowed\r\n\ @param\ onLoan\r\n\ @param\ cost\r\n\ @param\ weight\r\n
 comment1.params=
 comment1.target=void\ printDetails()
+comment1.text=\r\n\ Prints\ the\ default\ data\ that\ is\ shared\ between\ each\ tool\ type.\r\n
 comment10.params=timesBorrowed
 comment10.target=void\ setTimesBorrowed(int)
 comment11.params=onLoan
