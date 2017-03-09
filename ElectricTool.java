@@ -8,7 +8,7 @@
 public class ElectricTool extends Tool
 {
     // instance variables
-    private boolean rechargable;
+    private boolean rechargeable;
     private String power;
 
     /**
@@ -20,13 +20,13 @@ public class ElectricTool extends Tool
      * @param onLoan
      * @param cost
      * @param weight
-     * @param rechargable
+     * @param rechargeable
      * @param power
      */
-    public ElectricTool(String toolName, String itemCode, int timesBorrowed, boolean onLoan, int cost, int weight, boolean rechargable, String power)
+    public ElectricTool(String toolName, String itemCode, int timesBorrowed, boolean onLoan, int cost, int weight, boolean rechargeable, String power)
     {
         super(toolName, itemCode, timesBorrowed, onLoan, cost, weight);
-        this.rechargable = rechargable;
+        this.rechargeable = rechargeable;
         this.power = power;
     }
 
@@ -36,7 +36,7 @@ public class ElectricTool extends Tool
     public void printDetails()
     {
         super.printDetails();
-        System.out.println("Rechargable: " + rechargable);
+        System.out.println("Rechargeable: " + rechargeable);
         System.out.println("Power: " + power);
     }
 
@@ -44,9 +44,9 @@ public class ElectricTool extends Tool
      * Getters and Setters below
      */
 
-    public boolean isRechargable()
+    public boolean isRechargeable()
     {
-        return rechargable;
+        return rechargeable;
     }
 
     public String getPower()
@@ -54,9 +54,9 @@ public class ElectricTool extends Tool
         return power;
     }
 
-    public void setRechargable(boolean rechargable)
+    public void setRechargeable(boolean rechargeable)
     {
-        this.rechargable = rechargable;
+        this.rechargeable = rechargeable;
     }
 
     public void setPower(String power)
