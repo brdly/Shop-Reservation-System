@@ -5,7 +5,7 @@
  * @author George Broadley
  * @version 1.0.0
  */
-public class Tool
+public abstract class Tool
 {
     // instance variables
     private String toolName;

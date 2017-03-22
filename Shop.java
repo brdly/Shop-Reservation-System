@@ -35,36 +35,40 @@ public class Shop
         }
         else
         {
+            Scanner scanner = new Scanner("");
+            
             try
             {
                 File file = new File(filename);
-                Scanner scanner = new Scanner(file);
-        
-                while (scanner.hasNext())
-                {
-                    String nextLine = scanner.nextLine().trim();
-                                        
-                    if (!checkIfEmptyOrComment(nextLine))
-                    {
-                        Scanner fieldScanner = new Scanner(nextLine);
-                        fieldScanner.useDelimiter(",");
-                        boolean rechargeable = fieldScanner.nextBoolean();
-                        String power = fieldScanner.next();
-                        String toolName = fieldScanner.next();
-                        String itemCode = fieldScanner.next();
-                        int timesBorrowed = fieldScanner.nextInt();
-                        boolean onLoan = fieldScanner.nextBoolean();
-                        int cost = fieldScanner.nextInt();
-                        int weight = fieldScanner.nextInt();
-                        
-                        toolsList.add(new ElectricTool(toolName, itemCode, timesBorrowed, onLoan, cost,weight, rechargeable, power));
-                    }
-                }
+                scanner = new Scanner(file);
             }
             catch(FileNotFoundException e)
             {
                 System.out.println("Error 02: File not found, please try again with a valid file");
             }
+            while (scanner.hasNext())
+            {
+                String nextLine = scanner.nextLine().trim();
+                                    
+                if (!checkIfEmptyOrComment(nextLine))
+                {
+                    Scanner fieldScanner = new Scanner(nextLine);
+                    fieldScanner.useDelimiter(",");
+                    boolean rechargeable = fieldScanner.nextBoolean();
+                    String power = fieldScanner.next();
+                    String toolName = fieldScanner.next();
+                    String itemCode = fieldScanner.next();
+                    int timesBorrowed = fieldScanner.nextInt();
+                    boolean onLoan = fieldScanner.nextBoolean();
+                    int cost = fieldScanner.nextInt();
+                    int weight = fieldScanner.nextInt();
+                    
+                    toolsList.add(new ElectricTool(toolName, itemCode, timesBorrowed, onLoan, cost,weight, rechargeable, power));
+                    
+                    fieldScanner.close();
+                }
+            }
+            scanner.close();
         }
     }
     
@@ -77,7 +81,7 @@ public class Shop
         {
             return true;
         }
-        else if (lineToCheck.substring(0,2).equals("//"))
+        else if (lineToCheck.startsWith("//"))
         {
             return true;
         }
@@ -92,9 +96,16 @@ public class Shop
      */    
     public void printAllDetails()
     {
-        for (Tool tool:toolsList)
+        if (toolsList.isEmpty())
         {
-            tool.printDetails();
+            System.out.println("There are no tools to show");
+        }
+        else
+        {
+            for (Tool tool:toolsList)
+            {
+                tool.printDetails();
+            }
         }
     }
 
