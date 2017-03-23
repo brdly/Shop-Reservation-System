@@ -14,7 +14,7 @@ public abstract class ShopItem
     private int cost;
 
     /**
-     * Constructor for the Tool class
+     * Constructor for the ShopItem class
      *
      * @param itemName
      * @param itemCode
@@ -22,9 +22,9 @@ public abstract class ShopItem
      */
     public ShopItem(String itemName, String itemCode, int cost)
     {
-        this.itemName      = itemName;
-        this.itemCode      = itemCode;
-        this.cost          = cost;
+        this.itemName = itemName;
+        this.itemCode = itemCode;
+        this.cost     = cost;
     }
     
     public ShopItem() {}
@@ -42,9 +42,9 @@ public abstract class ShopItem
     
     public void extractData(Scanner fieldScanner)
     {
-        itemName      = fieldScanner.next();
-        itemCode      = fieldScanner.next();
-        cost          = fieldScanner.nextInt();
+        itemName = fieldScanner.next();
+        itemCode = fieldScanner.next();
+        cost     = fieldScanner.nextInt();
     }
 
     /**
@@ -66,7 +66,7 @@ public abstract class ShopItem
         return cost;
     }
 
-    public void seItemName(String itemName)
+    public void setItemName(String itemName)
     {
         this.itemName = itemName;
     }

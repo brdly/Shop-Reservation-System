@@ -1,7 +1,7 @@
 #BlueJ class context
 comment0.params=itemName\ itemCode\ cost
 comment0.target=ShopItem(java.lang.String,\ java.lang.String,\ int)
-comment0.text=\r\n\ Constructor\ for\ the\ Tool\ class\r\n\r\n\ @param\ itemName\r\n\ @param\ itemCode\r\n\ @param\ cost\r\n
+comment0.text=\r\n\ Constructor\ for\ the\ ShopItem\ class\r\n\r\n\ @param\ itemName\r\n\ @param\ itemCode\r\n\ @param\ cost\r\n
 comment1.params=
 comment1.target=ShopItem()
 comment2.params=
@@ -17,7 +17,7 @@ comment5.target=java.lang.String\ getItemCode()
 comment6.params=
 comment6.target=int\ getCost()
 comment7.params=itemName
-comment7.target=void\ seItemName(java.lang.String)
+comment7.target=void\ setItemName(java.lang.String)
 comment8.params=itemCode
 comment8.target=void\ setItemCode(java.lang.String)
 comment9.params=cost
