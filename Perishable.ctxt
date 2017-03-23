@@ -1,0 +1,23 @@
+#BlueJ class context
+comment0.params=itemName\ itemCode\ position\ cost\ isIrritant\ useByDate\ volume
+comment0.target=Perishable(java.lang.String,\ java.lang.String,\ java.lang.String,\ int,\ boolean,\ java.lang.String,\ int)
+comment0.text=\r\n\ Constructor\ for\ the\ Perishable\ class\r\n\r\n\ @param\ toolName\r\n\ @param\ itemCode\r\n\ @param\ position\r\n\ @param\ cost\r\n\ @param\ isIrritant\r\n\ @param\ useByDate\r\n\ @param\ volume\r\n
+comment1.params=
+comment1.target=Perishable()
+comment2.params=
+comment2.target=void\ printDetails()
+comment2.text=\r\n\ Prints\ details\ of\ this\ tool.\r\n
+comment3.params=fieldScanner
+comment3.target=void\ extractData(java.util.Scanner)
+comment4.params=
+comment4.target=boolean\ isIrritant()
+comment4.text=\r\n\ Getters\ and\ Setters\ below\r\n
+comment5.params=
+comment5.target=java.lang.String\ getUseByDate()
+comment6.params=
+comment6.target=int\ getVolume()
+comment7.params=isIrritant
+comment7.target=void\ setIrritant(boolean)
+comment8.params=useByDate
+comment8.target=void\ setUseByDate(java.lang.String)
+numComments=9

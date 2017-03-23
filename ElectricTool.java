@@ -1,3 +1,4 @@
+import java.util.*;
 
 /**
  * Subclass for the Tool class.
@@ -27,8 +28,10 @@ public class ElectricTool extends Tool
     {
         super(toolName, itemCode, timesBorrowed, onLoan, cost, weight);
         this.rechargeable = rechargeable;
-        this.power = power;
+        this.power        = power;
     }
+    
+    public ElectricTool() {}
 
     /**
      * Prints details of this tool.
@@ -38,6 +41,14 @@ public class ElectricTool extends Tool
         super.printDetails();
         System.out.println("Rechargeable: " + rechargeable);
         System.out.println("Power: " + power);
+    }
+    
+    public void extractData(Scanner fieldScanner)
+    {
+        rechargeable = fieldScanner.nextBoolean();
+        power        = fieldScanner.next();
+        
+        super.extractData(fieldScanner);
     }
 
     /**

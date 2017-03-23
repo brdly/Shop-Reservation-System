@@ -1,3 +1,4 @@
+import java.util.*;
 
 /**
  * Superclass for the ElectricTool and HandTool classes
@@ -5,63 +6,52 @@
  * @author George Broadley
  * @version 1.0.0
  */
-public abstract class Tool
+public abstract class Tool extends ShopItem
 {
     // instance variables
-    private String toolName;
-    private String itemCode;
     private int timesBorrowed;
     private boolean onLoan;
-    private int cost;
     private int weight;
 
     /**
      * Constructor for the Tool class
      *
-     * @param toolName
-     * @param itemCode
      * @param timesBorrowed
      * @param onLoan
-     * @param cost
      * @param weight
      */
-    public Tool(String toolName, String itemCode, int timesBorrowed, boolean onLoan, int cost, int weight)
+    public Tool(String itemName, String itemCode, int timesBorrowed, boolean onLoan, int cost, int weight)
     {
-        this.toolName      = toolName;
-        this.itemCode      = itemCode;
+        super(itemName, itemCode, cost);
         this.timesBorrowed = timesBorrowed;
         this.onLoan        = onLoan;
-        this.cost          = cost;
         this.weight        = weight;
     }
+    
+    public Tool() {}
 
     /**
      * Prints the default data that is shared between each tool type.
      */    
     public void printDetails()
     {
-        System.out.println("Tool Name: " + toolName);
-        System.out.println("");
-        System.out.println("Item Code: " + itemCode);
+        super.printDetails();
         System.out.println("Times Borrowed: " + timesBorrowed);
         System.out.println("On Loan: " + onLoan);
-        System.out.println("Cost: £" + (float) cost / 100);
         System.out.println("Weight: " + weight + "g");
+    }
+    
+    public void extractData(Scanner fieldScanner)
+    {
+        timesBorrowed = fieldScanner.nextInt();
+        onLoan        = fieldScanner.nextBoolean();
+        super.extractData(fieldScanner);
+        weight        = fieldScanner.nextInt();
     }
 
     /**
      * Getters and Setters below
      */
-
-    public String getToolName()
-    {
-        return toolName;
-    }
-
-    public String getItemCode()
-    {
-        return itemCode;
-    }
 
     public int getTimesBorrowed()
     {
@@ -73,24 +63,9 @@ public abstract class Tool
         return onLoan;
     }
 
-    public int getCost()
-    {
-        return cost;
-    }
-
     public int getWeight()
     {
         return weight;
-    }
-
-    public void setToolName(String toolName)
-    {
-        this.toolName = toolName;
-    }
-
-    public void setItemCode(String itemCode)
-    {
-        this.itemCode = itemCode;
     }
 
     public void setTimesBorrowed(int timesBorrowed)
@@ -101,11 +76,6 @@ public abstract class Tool
     public void setOnLoan(boolean onLoan)
     {
         this.onLoan = onLoan;
-    }
-
-    public void setCost(int cost)
-    {
-        this.cost = cost;
     }
 
     public void setWeight(int weight)

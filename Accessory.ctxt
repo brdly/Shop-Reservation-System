@@ -1,0 +1,17 @@
+#BlueJ class context
+comment0.params=itemName\ itemCode\ position\ cost
+comment0.target=Accessory(java.lang.String,\ java.lang.String,\ java.lang.String,\ int)
+comment0.text=\r\n\ Constructor\ for\ the\ Accessory\ class\r\n\r\n\ @param\ position\r\n
+comment1.params=
+comment1.target=Accessory()
+comment2.params=
+comment2.target=void\ printDetails()
+comment2.text=\r\n\ Prints\ the\ default\ data\ that\ is\ shared\ between\ each\ tool\ type.\r\n
+comment3.params=fieldScanner
+comment3.target=void\ extractData(java.util.Scanner)
+comment4.params=
+comment4.target=java.lang.String\ getPosition()
+comment4.text=\r\n\ Getters\ and\ Setters\ below\r\n
+comment5.params=position
+comment5.target=void\ setPosition(java.lang.String)
+numComments=6

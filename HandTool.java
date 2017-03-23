@@ -1,3 +1,4 @@
+import java.util.*;
 
 /**
  * Subclass of the Tool class.
@@ -26,6 +27,8 @@ public class HandTool extends Tool
         super(toolName, itemCode, timesBorrowed, onLoan, cost, weight);
         this.sharpenable = sharpenable;
     }
+    
+    public HandTool() {}
 
     /**
      * Prints details of this tool
@@ -34,6 +37,13 @@ public class HandTool extends Tool
     {
         super.printDetails();
         System.out.println("Sharpenable: " + sharpenable);
+    }
+    
+    public void extractData(Scanner fieldScanner)
+    {
+        sharpenable = fieldScanner.nextBoolean();
+        
+        super.extractData(fieldScanner);
     }
 
     /**

@@ -11,24 +11,24 @@ import java.io.*;
 public class Shop
 {
     // instance variables
-    private ArrayList<Tool> toolsList;
+    private ArrayList<ShopItem> shopItemList;
 
     /**
      * Constructor for objects of class Shop
      */
     public Shop()
     {
-        toolsList = new ArrayList<Tool>();
+        shopItemList = new ArrayList<ShopItem>();
     }
 
     /**
-     * Reader for electric tool data. Takes file input from dialog and puts that data into the tool arraylist.
+     * Reader for the shop data. Takes file input from dialog and puts that data into the tool arraylist.
      */
-    public void readElectricToolData()
+    public void readData()
     {
         FileDialog fileDialog = new FileDialog(new Frame(), "Open", FileDialog.LOAD);
         fileDialog.setVisible(true);
-        String filename = fileDialog.getDirectory() + fileDialog.getFile();        
+        String filename = fileDialog.getDirectory() + fileDialog.getFile();
         if (filename == null)
         {
             System.out.println("Error 01: File not found, please try again with a valid file");
@@ -40,32 +40,65 @@ public class Shop
             try
             {
                 File file = new File(filename);
-                scanner = new Scanner(file);
+                scanner   = new Scanner(file);
             }
             catch(FileNotFoundException e)
             {
                 System.out.println("Error 02: File not found, please try again with a valid file");
             }
+            String typeOfData = "[Electric";
             while (scanner.hasNext())
             {
                 String nextLine = scanner.nextLine().trim();
                                     
-                if (!checkIfEmptyOrComment(nextLine))
+                if (checkIfEmptyOrComment(nextLine))
                 {
-                    Scanner fieldScanner = new Scanner(nextLine);
-                    fieldScanner.useDelimiter(",");
-                    boolean rechargeable = fieldScanner.nextBoolean();
-                    String power = fieldScanner.next();
-                    String toolName = fieldScanner.next();
-                    String itemCode = fieldScanner.next();
-                    int timesBorrowed = fieldScanner.nextInt();
-                    boolean onLoan = fieldScanner.nextBoolean();
-                    int cost = fieldScanner.nextInt();
-                    int weight = fieldScanner.nextInt();
+                    //
+                }
+                else if (nextLine.startsWith("["))
+                {
+                    typeOfData = nextLine;
+                }
+                else
+                {
+                    ShopItem newItem = null;
                     
-                    toolsList.add(new ElectricTool(toolName, itemCode, timesBorrowed, onLoan, cost,weight, rechargeable, power));
-                    
-                    fieldScanner.close();
+                    if (typeOfData.toLowerCase().startsWith("[electric"))
+                    {
+                        newItem = new ElectricTool();
+                    }
+                    else if (typeOfData.toLowerCase().startsWith("[hand"))
+                    {
+                        newItem = new HandTool();
+                    }
+                    else if (typeOfData.toLowerCase().startsWith("[perishable"))
+                    {
+                        newItem = new Perishable();
+                    }
+                    else if (typeOfData.toLowerCase().startsWith("[workwear"))
+                    {
+                        newItem = new Workwear();
+                    }
+                    else
+                    {
+                        newItem = null;
+                    }
+                        
+                    if (newItem != null)
+                    {
+                        Scanner fieldScanner = new Scanner(nextLine);
+                       
+                        fieldScanner.useDelimiter(",");
+                        
+                        newItem.extractData(fieldScanner);
+                        shopItemList.add(newItem);
+                            
+                        fieldScanner.close();
+                    }
+                    else
+                    {
+                        System.out.println("Error 03: Type could not be recognised.");
+                    }
                 }
             }
             scanner.close();
@@ -96,15 +129,15 @@ public class Shop
      */    
     public void printAllDetails()
     {
-        if (toolsList.isEmpty())
+        if (shopItemList.isEmpty())
         {
             System.out.println("There are no tools to show");
         }
         else
         {
-            for (Tool tool:toolsList)
+            for (ShopItem shopItem:shopItemList)
             {
-                tool.printDetails();
+                shopItem.printDetails();
             }
         }
     }
@@ -112,13 +145,13 @@ public class Shop
     /**
      * Getters and Setters below
      */
-    public ArrayList getToolsList()
+    public ArrayList getShopItemList()
     {
-        return toolsList;
+        return shopItemList;
     }
 
-    public void setToolsList(ArrayList<Tool> toolsList)
+    public void setShopItemList(ArrayList<ShopItem> shopItemList)
     {
-        this.toolsList = toolsList;
+        this.shopItemList = shopItemList;
     }
 }
