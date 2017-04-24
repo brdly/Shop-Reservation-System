@@ -61,29 +61,8 @@ public class Shop
                 }
                 else
                 {
-                    ShopItem newItem = null;
-                    
-                    if (typeOfData.toLowerCase().startsWith("[electric"))
-                    {
-                        newItem = new ElectricTool();
-                    }
-                    else if (typeOfData.toLowerCase().startsWith("[hand"))
-                    {
-                        newItem = new HandTool();
-                    }
-                    else if (typeOfData.toLowerCase().startsWith("[perishable"))
-                    {
-                        newItem = new Perishable();
-                    }
-                    else if (typeOfData.toLowerCase().startsWith("[workwear"))
-                    {
-                        newItem = new Workwear();
-                    }
-                    else
-                    {
-                        newItem = null;
-                    }
-                        
+                    ShopItem newItem = getItemType(typeOfData);
+                                           
                     if (newItem != null)
                     {
                         Scanner fieldScanner = new Scanner(nextLine);
@@ -121,6 +100,33 @@ public class Shop
         else
         {
             return false;
+        }
+    }
+    
+    /**
+     * method returns the type of item or null if it doesn't match the item
+     */
+    private ShopItem getItemType(String typeOfData)
+    {
+        if (typeOfData.toLowerCase().startsWith("[electric"))
+        {
+            return new ElectricTool();
+        }
+        else if (typeOfData.toLowerCase().startsWith("[hand"))
+        {
+            return new HandTool();
+        }
+        else if (typeOfData.toLowerCase().startsWith("[perishable"))
+        {
+            return new Perishable();
+        }
+        else if (typeOfData.toLowerCase().startsWith("[workwear"))
+        {
+            return new Workwear();
+        }
+        else
+        {
+            return null;
         }
     }
 
