@@ -36,7 +36,7 @@ public class HandTool extends Tool
     public void printDetails()
     {
         super.printDetails();
-        System.out.println("Sharpenable: " + sharpenable);
+        System.out.printf("%-25s: %s\n", "Sharpenable", sharpenable);
     }
     
     public void extractData(Scanner fieldScanner)

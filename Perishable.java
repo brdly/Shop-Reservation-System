@@ -40,9 +40,9 @@ public class Perishable extends Accessory
     public void printDetails()
     {
         super.printDetails();
-        System.out.println("Is Irritant: " + isIrritant);
-        System.out.println("Use By Date: " + useByDate);
-        System.out.println("Volume: " + volume);
+        System.out.printf("%-25s: %s\n", "Is Irritant", isIrritant);
+        System.out.printf("%-25s: %s\n", "Use By Date", useByDate);
+        System.out.printf("%-25s: %s\n", "Volume", volume);
     }
     
     public void extractData(Scanner fieldScanner)

@@ -39,8 +39,8 @@ public class ElectricTool extends Tool
     public void printDetails()
     {
         super.printDetails();
-        System.out.println("Rechargeable: " + rechargeable);
-        System.out.println("Power: " + power);
+        System.out.printf("%-25s: %s\n", "Rechargeable", rechargeable);
+        System.out.printf("%-25s: %s\n", "Power", power);
     }
     
     public void extractData(Scanner fieldScanner)

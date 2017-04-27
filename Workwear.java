@@ -40,9 +40,9 @@ public class Workwear extends Accessory
     public void printDetails()
     {
         super.printDetails();
-        System.out.println("Manufacturing Standard: " + manufacturingStandard);
-        System.out.println("Colour: " + colour);
-        System.out.println("Size: " + size);
+        System.out.printf("%-25s: %s\n", "Manufacturing Standard", manufacturingStandard);
+        System.out.printf("%-25s: %s\n", "Colour", colour);
+        System.out.printf("%-25s: %s\n", "Size", size);
     }
     
     public void extractData(Scanner fieldScanner)

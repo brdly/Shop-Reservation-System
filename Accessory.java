@@ -30,7 +30,7 @@ public abstract class Accessory extends ShopItem
     public void printDetails()
     {
         super.printDetails();
-        System.out.println("Position: " + position);
+        System.out.printf("%-25s: %s\n", "Position", position);
     }
     
     public void extractData(Scanner fieldScanner)

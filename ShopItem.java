@@ -28,16 +28,17 @@ public abstract class ShopItem
     }
     
     public ShopItem() {}
-
+    
     /**
      * Prints the default data that is shared between each shop item.
      */    
     public void printDetails()
     {
-        System.out.println("Item Name: " + itemName);
         System.out.println("");
-        System.out.println("Item Code: " + itemCode);
-        System.out.println("Cost: £" + (float) cost / 100);
+        System.out.printf("%-25s: %s\n", "Item Name", itemName);
+        System.out.println("");
+        System.out.printf("%-25s: %s\n", "Item Code", itemCode);
+        System.out.printf("%-25s: £%.2f\n", "Cost", (float) cost / 100);
     }
     
     public void extractData(Scanner fieldScanner)

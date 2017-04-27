@@ -36,9 +36,9 @@ public abstract class Tool extends ShopItem
     public void printDetails()
     {
         super.printDetails();
-        System.out.println("Times Borrowed: " + timesBorrowed);
-        System.out.println("On Loan: " + onLoan);
-        System.out.println("Weight: " + weight + "g");
+        System.out.printf("%-25s: %s\n", "Times Borrowed", timesBorrowed);
+        System.out.printf("%-25s: %s\n", "On Loan", onLoan);
+        System.out.printf("%-25s: %sg\n", "Weight", weight);
     }
     
     public void extractData(Scanner fieldScanner)
