@@ -14,7 +14,7 @@ public class Test
      */
     public Test() throws FileNotFoundException
     {
-        Shop shop = new Shop();
+        Shop shop = new Shop("TestShop");
         System.out.println("Starting Testing");
         /**
          * Create a Customer with name Mr John T Roberts and print him.
@@ -34,7 +34,7 @@ public class Test
          */
         System.out.println("----------------");
         shop.writeCustomerData("new_customer_data.txt");
-        Shop shop2 = new Shop();
+        Shop shop2 = new Shop("TestShop");
         shop2.readCustomerData();
         shop2.printAllCustomers();
         /**
@@ -59,9 +59,19 @@ public class Test
         int daysBetween = DateUtil.daysBetween(date1, date2);
         System.out.println("Days between 12-05-2017 and 23-05-2017: " + daysBetween);
         /**
-         * Testing creating and storing Reservation
+         * Testing creating, storing and deleting Reservations
          */
         System.out.println("----------------");
-        
+        System.out.println("Creating Reservations:");
+        System.out.println("Customer ID  Item ID  Start Date  No of Days  Should Save?");
+        System.out.println("AB-147441    RD4352   28-5-2017   6           Yes");
+        System.out.println("AB-571499    RD3022   2-6-2017    6           Yes");
+        System.out.println("AB-640928    RD4422   28-5-2017   6           No - Wrong Item ID");
+        System.out.println("AB-233950    RD4352   3-6-2017    6           No - Item Already Reserved");
+        shop2.makeItemReservation("AB-147441", "RD4352", "28-5-2017", 6);
+        shop2.makeItemReservation("AB-571499", "RD3022", "2-6-2017", 6);
+        shop2.makeItemReservation("AB-640928", "RD4422", "28-5-2017", 6);
+        shop2.makeItemReservation("AB-233950", "RD4352", "3-6-2017", 6);
+        shop2.printDiaryEntries("28-5-2017", "4-6-2017");
     }
 }

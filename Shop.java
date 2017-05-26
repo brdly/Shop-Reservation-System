@@ -18,17 +18,23 @@ public class Shop
     private HashMap<String, ShopItemReservation> itemReservationMap;
     private Random randomGenerator;
     private Diary diary;
+    private String dumpCustomerDataFileName;
+    private String dumpItemReservationDataFileName;
 
     /**
      * Constructor for objects of class Shop
      */
-    public Shop()
+    public Shop(String shopName)
     {
         shopItemMap        = new HashMap<String, ShopItem>();
         customerMap        = new HashMap<String, Customer>();
         itemReservationMap = new HashMap<String, ShopItemReservation>();
         randomGenerator    = new Random();
         diary              = new Diary();
+        dumpCustomerDataFileName = shopName + "customer_dump.txt";
+        dumpItemReservationDataFileName = shopName + "reservation_dump.txt";
+        readItemData("items_all.txt");
+        reloadSystem();
     }
 
     public void storeCustomer(Customer customer)
@@ -61,8 +67,14 @@ public class Shop
     public void readCustomerData()
     {
         FileDialog fileDialog = new FileDialog(new Frame(), "Open", FileDialog.LOAD);
+        
         fileDialog.setVisible(true);
-        String filename = fileDialog.getDirectory() + fileDialog.getFile();
+        
+        readCustomerData(fileDialog.getDirectory() + fileDialog.getFile());
+    }
+    
+    public void readCustomerData(String filename)
+    {
         if (filename == null)
         {
             System.out.println("Error 01: File not found, please try again with a valid file");
@@ -110,8 +122,14 @@ public class Shop
     public void readItemReservationData()
     {
         FileDialog fileDialog = new FileDialog(new Frame(), "Open", FileDialog.LOAD);
+        
         fileDialog.setVisible(true);
-        String filename = fileDialog.getDirectory() + fileDialog.getFile();
+        
+        readItemReservationData(fileDialog.getDirectory() + fileDialog.getFile());
+    }
+    
+    public void readItemReservationData(String filename)
+    {
         if (filename == null)
         {
             System.out.println("Error 01: File not found, please try again with a valid file");
@@ -155,9 +173,27 @@ public class Shop
         }
     }
     
-    public void writeCustomerData(String fileName) throws FileNotFoundException
+    public void writeCustomerData()
     {
-        PrintWriter pWriter = new PrintWriter(fileName);
+        FileDialog fileDialog = new FileDialog(new Frame(), "Open", FileDialog.LOAD);
+        
+        fileDialog.setVisible(true);
+        
+        writeCustomerData(fileDialog.getDirectory() + fileDialog.getFile());
+    }
+    
+    public void writeCustomerData(String filename)
+    {
+        PrintWriter pWriter = null;
+        
+        try 
+        {
+            pWriter = new PrintWriter(filename);
+        }
+        catch(FileNotFoundException e)
+        {
+            System.out.println("File does not exist");
+        }
         
         if (!customerMap.isEmpty())
         {
@@ -175,13 +211,22 @@ public class Shop
         }
     }
     
-    public void writeItemReservationData(String fileName)
+    public void writeItemReservationData()
+    {
+        FileDialog fileDialog = new FileDialog(new Frame(), "Open", FileDialog.LOAD);
+        
+        fileDialog.setVisible(true);
+        
+        writeItemReservationData(fileDialog.getDirectory() + fileDialog.getFile());
+    }
+    
+    public void writeItemReservationData(String filename)
     {
         PrintWriter pWriter = null;
         
         try 
         {
-            pWriter = new PrintWriter(fileName);
+            pWriter = new PrintWriter(filename);
         }
         catch(FileNotFoundException e)
         {
@@ -207,11 +252,17 @@ public class Shop
     /**
      * Reader for the shop data. Takes file input from dialog and puts that data into the tool arraylist.
      */
-    public void readData()
+    public void readItemData()
     {
         FileDialog fileDialog = new FileDialog(new Frame(), "Open", FileDialog.LOAD);
+        
         fileDialog.setVisible(true);
-        String filename = fileDialog.getDirectory() + fileDialog.getFile();
+        
+        readItemData(fileDialog.getDirectory() + fileDialog.getFile());
+    }
+    
+    public void readItemData(String filename)
+    {
         if (filename == null)
         {
             System.out.println("Error 01: File not found, please try again with a valid file");
@@ -321,7 +372,7 @@ public class Shop
     /**
      * Method loops through each tool in the arraylist and calls that tool's printDetails method.
      */    
-    public void printAllDetails()
+    public void printItemDetails()
     {
         if (shopItemMap.isEmpty())
         {
@@ -420,24 +471,61 @@ public class Shop
         
         if (!customerMap.containsKey(customerID))
         {
+            System.out.println("CustomerID");
             return false;
         }
         else if (!shopItemMap.containsKey(itemID))
         {
+            System.out.println("itemID");
             return false;
         }
         else if (!DateUtil.isValidDateString(startDate))
         {
+            System.out.println("startDate");
             return false;
         }
         else if (noOfDays < 0)
+        {
+            System.out.println("noOfDays");
+            return false;
+        }
+        else
+        {
+            for (int currDays = 0; currDays <= noOfDays; currDays++)
+            {
+                ShopItemReservation[] shopItemReservations = diary.getItemReservations(DateUtil.incrementDate(DateUtil.convertStringToDate(startDate), currDays));
+                if (shopItemReservations != null)
+                {
+                    for(ShopItemReservation shopItemReservation:shopItemReservations)
+                    {
+                        if(shopItemReservation.getItemID() == itemID)
+                        {
+                            System.out.println("Duplicate");
+                            return false;
+                        }
+                    }
+                }
+            }
+            ShopItemReservation shopItemReservation = new ShopItemReservation(reservationNo, itemID, customerID, startDate, noOfDays);
+            
+            storeItemReservation(shopItemReservation);
+        
+            return true;
+        }
+    }
+    
+    public boolean deleteItemReservation(String reservationNo)
+    {
+        if (!itemReservationMap.containsKey(reservationNo))
         {
             return false;
         }
         else
         {
-            itemReservationMap.put(reservationNo, new ShopItemReservation(reservationNo, itemID, customerID, startDate, noOfDays));
-        
+            diary.deleteItemReservation(itemReservationMap.get(reservationNo));
+            
+            itemReservationMap.remove(reservationNo);
+            
             return true;
         }
     }
@@ -456,6 +544,33 @@ public class Shop
         {
             diary.printEntries(DateUtil.convertStringToDate(startDate), DateUtil.convertStringToDate(endDate));
         }
+    }
+    
+    public void closeDownSystem()
+    {
+        writeCustomerData(dumpCustomerDataFileName);
+        writeItemReservationData(dumpItemReservationDataFileName);
+    }
+    
+    public void reloadSystem()
+    {
+        readCustomerData(dumpCustomerDataFileName);
+        readItemReservationData(dumpItemReservationDataFileName);
+    }
+    
+    public int getNumberOfItems()
+    {
+        return shopItemMap.size();
+    }
+    
+    public int getNumberOfCustomers()
+    {
+        return customerMap.size();
+    }
+    
+    public int getNumberOfReservations()
+    {
+        return itemReservationMap.size();
     }
 
     /**
