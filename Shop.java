@@ -15,6 +15,7 @@ public class Shop
     //private List<Customer> customerMap;
     private HashMap<String, ShopItem> shopItemMap;
     private HashMap<String, Customer> customerMap;
+    private HashMap<String, ShopItemReservation> itemReservationMap;
     private Random randomGenerator;
 
     /**
@@ -22,14 +23,20 @@ public class Shop
      */
     public Shop()
     {
-        shopItemMap     = new HashMap<String, ShopItem>();
-        customerMap     = new HashMap<String, Customer>();
-        randomGenerator = new Random();
+        shopItemMap        = new HashMap<String, ShopItem>();
+        customerMap        = new HashMap<String, Customer>();
+        itemReservationMap = new HashMap<String, ShopItemReservation>();
+        randomGenerator    = new Random();
     }
 
     public void storeCustomer(Customer customer)
     {
         customerMap.put(customer.getCustomerID(), customer);
+    }
+    
+    public void storeItemReservation(ShopItemReservation shopItemReservation)
+    {
+        itemReservationMap.put(shopItemReservation.getReservationNo(), shopItemReservation);
     }
 
     public void printAllCustomers()
@@ -96,6 +103,54 @@ public class Shop
         }
     }
     
+    public void readItemReservationData()
+    {
+        FileDialog fileDialog = new FileDialog(new Frame(), "Open", FileDialog.LOAD);
+        fileDialog.setVisible(true);
+        String filename = fileDialog.getDirectory() + fileDialog.getFile();
+        if (filename == null)
+        {
+            System.out.println("Error 01: File not found, please try again with a valid file");
+        }
+        else
+        {
+            Scanner scanner = new Scanner("");
+            
+            try
+            {
+                File file = new File(filename);
+                scanner   = new Scanner(file);
+            }
+            catch(FileNotFoundException e)
+            {
+                System.out.println("Error 02: File not found, please try again with a valid file");
+            }
+            while (scanner.hasNext())
+            {
+                String nextLine = scanner.nextLine().trim();
+                                    
+                if (checkIfEmptyOrComment(nextLine))
+                {
+                    //
+                }
+                else
+                {
+                    ShopItemReservation shopItemReservation = new ShopItemReservation();
+                                           
+                    Scanner fieldScanner = new Scanner(nextLine);
+                       
+                    fieldScanner.useDelimiter(",");
+                        
+                    shopItemReservation.readData(fieldScanner);
+                    itemReservationMap.put(shopItemReservation.getReservationNo(), shopItemReservation);
+                        
+                    fieldScanner.close();
+                }
+            }
+            scanner.close();
+        }
+    }
+    
     public void writeCustomerData(String fileName) throws FileNotFoundException
     {
         PrintWriter pWriter = new PrintWriter(fileName);
@@ -105,6 +160,35 @@ public class Shop
             for (Customer customer:customerMap.values())
             {
                 customer.writeData(pWriter);
+            }
+            
+            //pWriter.println();
+            pWriter.close();
+        }
+        else
+        {
+            System.out.println("There is no data to write");
+        }
+    }
+    
+    public void writeItemReservationData(String fileName)
+    {
+        PrintWriter pWriter = null;
+        
+        try 
+        {
+            pWriter = new PrintWriter(fileName);
+        }
+        catch(FileNotFoundException e)
+        {
+            System.out.println("File does not exist");
+        }
+        
+        if (!itemReservationMap.isEmpty())
+        {
+            for (ShopItemReservation shopItemReservation:itemReservationMap.values())
+            {
+                shopItemReservation.writeData(pWriter);
             }
             
             //pWriter.println();
@@ -179,6 +263,11 @@ public class Shop
         }
     }
     
+    public ShopItemReservation getItemReservation(String reservationNo)
+    {
+        return itemReservationMap.get(reservationNo);
+    }
+    
     /**
      * Method returns true if the line inputted is either a comment (line starts with "//") or empty, else the method returns false.
      */
@@ -243,6 +332,24 @@ public class Shop
         }
     }
     
+    /**
+     * Method loops through each reservation in the hashmap and calls that reservation's printDetails method.
+     */    
+    public void printItemReservationsDetails()
+    {
+        if (itemReservationMap.isEmpty())
+        {
+            System.out.println("There are no reservations to show");
+        }
+        else
+        {
+            for (ShopItemReservation shopItemReservation:itemReservationMap.values())
+            {
+                shopItemReservation.printDetails();
+            }
+        }
+    }
+    
     private String generateCustomerID(String prefix, int length)
     {
         String id = prefix + (randomGenerator.nextInt(9) + 1);
@@ -260,6 +367,75 @@ public class Shop
             }
         }
         return id;
+    }
+    
+    private String generateReservationNo()
+    {
+        Scanner scanner = new Scanner("");
+        int lastId      = 0;
+        
+        try
+        {
+            File file = new File("reservationNo.txt");
+            scanner   = new Scanner(file);
+            lastId    = scanner.nextInt();
+            
+            scanner.close();
+            
+            PrintWriter pWriter = new PrintWriter("reservationNo.txt");
+            pWriter.println(lastId+1);
+            pWriter.close();
+        }
+        catch(FileNotFoundException e)
+        {
+            System.out.println("Error 03: No reservation file, generating file.");
+            try
+            {
+                PrintWriter pWriter = new PrintWriter("reservationNo.txt");
+                pWriter.println(1);
+                pWriter.close();
+            }
+            catch(FileNotFoundException f)
+            {
+                System.out.println("Error 04: Generating reservation file failed.");
+            }
+        }        
+        String id = Integer.toString(lastId+1);
+        
+        while (id.length() < 6)
+        {
+            id = "0" + id;
+        }
+        
+        return id;
+    }
+    
+    public boolean makeItemReservation(String customerID, String itemID, String startDate, int noOfDays)
+    {
+        String reservationNo = generateReservationNo();
+        
+        if (!customerMap.containsKey(customerID))
+        {
+            return false;
+        }
+        else if (!shopItemMap.containsKey(itemID))
+        {
+            return false;
+        }
+        else if (!DateUtil.isValidDateString(startDate))
+        {
+            return false;
+        }
+        else if (noOfDays < 0)
+        {
+            return false;
+        }
+        else
+        {
+            itemReservationMap.put(reservationNo, new ShopItemReservation(reservationNo, itemID, customerID, startDate, noOfDays));
+        
+            return true;
+        }
     }
 
     /**

@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.Date;
 
 /**
  * Write a description of class Test here.
@@ -49,5 +50,18 @@ public class Test
             // shop.storeCustomer(customer);
             // System.out.println(id);
         // }
+        /**
+         * Testing generating date and using date
+         */
+        System.out.println("----------------");
+        Date date1 = DateUtil.convertStringToDate("12-05-2017");
+        Date date2 = DateUtil.convertStringToDate("23-05-2017");
+        int daysBetween = DateUtil.daysBetween(date1, date2);
+        System.out.println("Days between 12-05-2017 and 23-05-2017: " + daysBetween);
+        /**
+         * Testing creating and storing Reservation
+         */
+        System.out.println("----------------");
+        
     }
 }
