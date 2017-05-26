@@ -17,6 +17,7 @@ public class Shop
     private HashMap<String, Customer> customerMap;
     private HashMap<String, ShopItemReservation> itemReservationMap;
     private Random randomGenerator;
+    private Diary diary;
 
     /**
      * Constructor for objects of class Shop
@@ -27,6 +28,7 @@ public class Shop
         customerMap        = new HashMap<String, Customer>();
         itemReservationMap = new HashMap<String, ShopItemReservation>();
         randomGenerator    = new Random();
+        diary              = new Diary();
     }
 
     public void storeCustomer(Customer customer)
@@ -36,6 +38,8 @@ public class Shop
     
     public void storeItemReservation(ShopItemReservation shopItemReservation)
     {
+        diary.addItemReservation(shopItemReservation);
+        
         itemReservationMap.put(shopItemReservation.getReservationNo(), shopItemReservation);
     }
 
@@ -435,6 +439,22 @@ public class Shop
             itemReservationMap.put(reservationNo, new ShopItemReservation(reservationNo, itemID, customerID, startDate, noOfDays));
         
             return true;
+        }
+    }
+    
+    public void printDiaryEntries(String startDate, String endDate)
+    {
+        if (!DateUtil.isValidDateString(startDate))
+        {
+            System.out.println("Start date is not a valid date");
+        }
+        else if (!DateUtil.isValidDateString(endDate))
+        {
+            System.out.println("End date is not a valid date");
+        }
+        else
+        {
+            diary.printEntries(DateUtil.convertStringToDate(startDate), DateUtil.convertStringToDate(endDate));
         }
     }
 

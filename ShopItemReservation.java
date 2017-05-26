@@ -32,12 +32,7 @@ public class ShopItemReservation
     }
     
     public ShopItemReservation() {}
-    
-    public String getReservationNo()
-    {
-        return reservationNo;
-    }
-    
+       
     public void printDetails()
     {
         System.out.println("");
@@ -60,5 +55,30 @@ public class ShopItemReservation
         customerID    = fieldScanner.next().trim();
         startDate     = DateUtil.convertStringToDate(fieldScanner.next().trim());
         noOfDays      = fieldScanner.nextInt();
+    }
+    
+    public String getReservationNo()
+    {
+        return reservationNo;
+    }
+    
+    public String getItemID()
+    {
+        return itemID;
+    }
+    
+    public String getCustomerID()
+    {
+        return customerID;
+    }
+    
+    public Date getStartDate()
+    {
+        return startDate;
+    }
+    
+    public int getNoOfDays()
+    {
+        return noOfDays;
     }
 }
